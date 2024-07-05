@@ -1,0 +1,23 @@
+<?page title="Productos" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Productos" border="normal" apply="com.proyecto.controlador.CatProductoControlador">
+
+	<listbox id="lbxCatProducto">
+		<listhead>
+			<listheader label="Codigo"/>
+			<listheader label="Nombre"/>
+			<listheader label="Descripcion"/>
+			<listheader label="Precio"/>
+		</listhead>
+		
+	<listitem>
+		<listcell label="1"></listcell>
+		<listcell label="chocolate"></listcell>
+		<listcell label="helado de chocolate"></listcell>
+		<listcell label="1.50"></listcell>
+	</listitem>
+		
+	</listbox>
+	
+</window>
+</zk>

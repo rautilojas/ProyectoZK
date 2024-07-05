@@ -1,0 +1,8 @@
+<?page title="Auto Generated index.zul"?>
+<window title="Hello World!!" border="normal" width="200px" apply="com.proyecto.controlador.Controlador">
+
+<label id="lblSaludo"/>
+
+<button id="btnSaludo" label="Presionar"></button>
+
+</window>
