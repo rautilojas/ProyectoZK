@@ -2,6 +2,8 @@
 <zk>
 <window title="Productos" border="normal" apply="com.proyecto.controlador.CatProductoControlador">
 
+<button id="btnGuardar" label="Guardar"></button>
+
 	<listbox id="lbxCatProducto">
 		<listhead>
 			<listheader label="Codigo"/>
@@ -9,14 +11,6 @@
 			<listheader label="Descripcion"/>
 			<listheader label="Precio"/>
 		</listhead>
-		
-	<listitem>
-		<listcell label="1"></listcell>
-		<listcell label="chocolate"></listcell>
-		<listcell label="helado de chocolate"></listcell>
-		<listcell label="1.50"></listcell>
-	</listitem>
-		
 	</listbox>
 	
 </window>
