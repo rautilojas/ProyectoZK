@@ -71,6 +71,45 @@ public class CatProductoControlador extends BaseControlador{
 	private Textbox txtNombre;
     private Textbox txtDescripcion;
     private Textbox txtPrecio;
+    
+    private void mostrarDatosProducto(CatProducto producto) {
+        txtNombre.setValue(producto.getNombre());
+        txtDescripcion.setValue(producto.getDescripcion());
+        txtPrecio.setValue(String.valueOf(producto.getPrecio()));
+    }
+
+    public void onSelect$lbxCatProducto(Event event) { 
+        Listitem selectedItem = lbxCatProducto.getSelectedItem();
+        if (selectedItem != null) {
+            CatProducto productoSeleccionado = selectedItem.getValue();
+            mostrarDatosProducto(productoSeleccionado); 
+        }
+    }
+    
+    public void onClick$btnGuardar(Event evt) {
+        Listitem selectedItem = lbxCatProducto.getSelectedItem();
+        if (selectedItem != null) {
+            CatProducto producto = selectedItem.getValue();
+
+            producto.setNombre(txtNombre.getValue());
+            producto.setDescripcion(txtDescripcion.getValue());
+            try {
+                producto.setPrecio(Integer.parseInt(txtPrecio.getValue()));
+            } catch (NumberFormatException e) {
+                Messagebox.show("Error: El precio debe ser un número entero.");
+                return;
+            }
+
+            try {
+                CatProductoDao.getInstance().update(producto);
+                cargarCatProducto();
+                Messagebox.show("Producto actualizado correctamente.");
+            } catch (SQLException | NamingException e) {
+                Messagebox.show("Error al actualizar el producto.");
+                e.printStackTrace();
+            }
+        }
+    }
 	
 	private void agregarProducto() {
 	    String nombre = txtNombre.getValue();

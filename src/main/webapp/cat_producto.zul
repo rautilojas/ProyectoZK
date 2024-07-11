@@ -2,9 +2,6 @@
 <zk>
 <window title="Productos" border="normal" apply="com.proyecto.controlador.CatProductoControlador">
 
-<button id="btnGuardar" label="Guardar"></button>
-<button id="btnEliminar" label="Eliminar"/> 
-
 <grid>
         <rows>
             <row>
@@ -23,8 +20,10 @@
     </grid>
 
 <button id="btnAgregar" label="Agregar"></button>
+<button id="btnGuardar" label="Guardar"></button>
+<button id="btnEliminar" label="Eliminar"/> 
 
-	<listbox id="lbxCatProducto">
+	<listbox id="lbxCatProducto" onSelect="onSelect$lbxCatProducto">
 		<listhead>
 			<listheader label="Codigo"/>
 			<listheader label="Nombre"/>

@@ -6,7 +6,6 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
-import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import com.proyecto.model.CatProducto;
 import com.proyecto.utils.Commons;
@@ -24,6 +23,8 @@ public class CatProductoDao {
 	private final String SQL_SELECT = "SELECT id, nombre, descripcion, precio FROM cat_producto";
 	
 	private final String SQL_DELETE = "DELETE FROM cat_producto WHERE id = ?";
+	
+	private final String SQL_UPDATE = "UPDATE cat_producto SET nombre = ?, descripcion = ?, precio = ? WHERE id = ?";
 	
 	public CatProductoDao () throws NamingException {
 		this.ds = Commons.getDS();
@@ -53,4 +54,11 @@ public class CatProductoDao {
 	public int eliminar(int idProducto) throws SQLException {
 	    return qr.update(SQL_DELETE, idProducto);
 	}
+	
+	 public int update(CatProducto producto) throws SQLException {
+	        Object[] params = {producto.getNombre(), producto.getDescripcion(), producto.getPrecio(), producto.getId()};
+	        return qr.update(SQL_UPDATE, params);
+	    }
+
+
 }
