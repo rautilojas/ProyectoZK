@@ -92,4 +92,27 @@ public class CatProductoControlador extends BaseControlador{
 			e.printStackTrace();
 		}
 	}
+	
+	private void eliminarProducto() {
+	    Listitem selectedItem = lbxCatProducto.getSelectedItem();
+	    if (selectedItem == null) {
+	        System.out.println("Error: No hay producto seleccionado");
+	        return; 
+	    }
+	    CatProducto productoEliminar = selectedItem.getValue();
+	    try {
+	        int result = CatProductoDao.getInstance().eliminar(productoEliminar.getId());
+	        if (result > 0) {
+	            System.out.println("Producto eliminado con éxito");
+	            cargarCatProducto();
+	        } else {
+	            System.out.println("Error al eliminar el producto");
+	        }
+	    } catch (SQLException | NamingException e) {
+	        e.printStackTrace();
+	    }
+	}	
+	public void onClick$btnEliminar(Event evt) {
+		eliminarProducto();
+	}
 }

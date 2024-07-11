@@ -13,5 +13,7 @@
 		</listhead>
 	</listbox>
 	
+<button id="btnEliminar" label="Eliminar"/> 
+	
 </window>
 </zk>

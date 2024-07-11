@@ -23,6 +23,8 @@ public class CatProductoDao {
 	
 	private final String SQL_SELECT = "SELECT id, nombre, descripcion, precio FROM cat_producto";
 	
+	private final String SQL_DELETE = "DELETE FROM cat_producto WHERE id = ?";
+	
 	public CatProductoDao () throws NamingException {
 		this.ds = Commons.getDS();
 		this.qr = new QueryRunner(ds);
@@ -46,5 +48,9 @@ public class CatProductoDao {
 	public List<CatProducto> getLstProductos() throws SQLException{
 		ResultSetHandler<List<CatProducto>> rsh = new BeanListHandler<CatProducto>(CatProducto.class);
 		return qr.query(SQL_SELECT, rsh);
+	}
+	
+	public int eliminar(int idProducto) throws SQLException {
+	    return qr.update(SQL_DELETE, idProducto);
 	}
 }
