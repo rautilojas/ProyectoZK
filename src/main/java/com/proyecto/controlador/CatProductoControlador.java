@@ -11,6 +11,7 @@ import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listcell;
 import org.zkoss.zul.Listitem;
+import org.zkoss.zul.Messagebox;
 
 import com.proyecto.dao.CatProductoDao;
 import com.proyecto.model.CatProducto;
@@ -100,18 +101,26 @@ public class CatProductoControlador extends BaseControlador{
 	        return; 
 	    }
 	    CatProducto productoEliminar = selectedItem.getValue();
-	    try {
-	        int result = CatProductoDao.getInstance().eliminar(productoEliminar.getId());
-	        if (result > 0) {
-	            System.out.println("Producto eliminado con éxito");
-	            cargarCatProducto();
-	        } else {
-	            System.out.println("Error al eliminar el producto");
-	        }
-	    } catch (SQLException | NamingException e) {
-	        e.printStackTrace();
-	    }
-	}	
+	    Messagebox.show("¿Está seguro de que desea eliminar el producto: " + productoEliminar.getNombre() + "?", 
+	                    "Confirmar eliminación", 
+	                    Messagebox.YES | Messagebox.NO, 
+	                    Messagebox.QUESTION, 
+	                    event -> {
+	                        if (event.getName().equals("onYes")) {
+	                            try {
+	                                int result = CatProductoDao.getInstance().eliminar(productoEliminar.getId());
+	                                if (result > 0) {
+	                                    System.out.println("Producto eliminado con éxito");
+	                                    cargarCatProducto();
+	                                } else {
+	                                    System.out.println("Error al eliminar el producto");
+	                                }
+	                            } catch (SQLException | NamingException e) {
+	                                e.printStackTrace();
+	                            }
+	                        }
+	                    });
+	}
 	public void onClick$btnEliminar(Event evt) {
 		eliminarProducto();
 	}
