@@ -3,15 +3,14 @@ package com.proyecto.controlador;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.naming.NamingException;
-
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listcell;
 import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Messagebox;
+import org.zkoss.zul.Textbox;
 
 import com.proyecto.dao.CatProductoDao;
 import com.proyecto.model.CatProducto;
@@ -22,7 +21,6 @@ public class CatProductoControlador extends BaseControlador{
 	
 	public void doAfterCompose(Component comp) throws Exception {
 		super.doAfterCompose(comp);
-		
 		cargarCatProducto();
 	}
 	
@@ -37,7 +35,6 @@ public class CatProductoControlador extends BaseControlador{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		 
 			if (lst != null && lst.size() > 0) {
 				lbxCatProducto.getItems().clear();
 				Listitem item;
@@ -67,32 +64,44 @@ public class CatProductoControlador extends BaseControlador{
 		}	
 	}
 	
-	public void onClick$btnGuardar(Event evt) {
-		guardarProducto();
+	public void onClick$btnAgregar(Event evt) {
+		agregarProducto();
 	}
 	
-	private void guardarProducto() {
-		System.out.println("----Guardando----s");
-		CatProducto prod = new CatProducto();
-		prod.setId(3);
-		prod.setNombre("Chocolate rosa");
-		prod.setDescripcion("Baño");
-		prod.setPrecio((int) 2.50);
-		
-		int result;
-		try {
-			result = CatProductoDao.getInstance().insert(prod);
-			if(result == 0) {
-				System.out.println("Ha ocurrido un error, intente de nuevo");
-			} else {
-				System.out.println("Producto agregado");
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (NamingException e) {
-			e.printStackTrace();
-		}
+	private Textbox txtNombre;
+    private Textbox txtDescripcion;
+    private Textbox txtPrecio;
+	
+	private void agregarProducto() {
+	    String nombre = txtNombre.getValue();
+	    String descripcion = txtDescripcion.getValue();
+	    int precio;
+	    try {
+	        precio = Integer.parseInt(txtPrecio.getValue());
+	    } catch (NumberFormatException e) {
+	        System.out.println("Error: Precio no válido");
+	        return; 
+	    }
+	    CatProducto nuevoProducto = new CatProducto();
+	    nuevoProducto.setNombre(nombre);
+	    nuevoProducto.setDescripcion(descripcion);
+	    nuevoProducto.setPrecio(precio);
+	    try {
+	        int result = CatProductoDao.getInstance().insert(nuevoProducto);
+	        if (result > 0) {
+	            System.out.println("Producto agregado con éxito");
+	            txtNombre.setValue("");
+	            txtDescripcion.setValue("");
+	            txtPrecio.setValue("");
+	            cargarCatProducto();
+	        } else {
+	            System.out.println("Error al agregar el producto");
+	        }
+	    } catch (SQLException | NamingException e) {
+	        e.printStackTrace();
+	    }
 	}
+
 	
 	private void eliminarProducto() {
 	    Listitem selectedItem = lbxCatProducto.getSelectedItem();

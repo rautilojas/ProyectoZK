@@ -3,6 +3,26 @@
 <window title="Productos" border="normal" apply="com.proyecto.controlador.CatProductoControlador">
 
 <button id="btnGuardar" label="Guardar"></button>
+<button id="btnEliminar" label="Eliminar"/> 
+
+<grid>
+        <rows>
+            <row>
+                <label value="Nombre:"/>
+                <textbox id="txtNombre"/>
+            </row>
+            <row>
+                <label value="Descripción:"/>
+                <textbox id="txtDescripcion"/>
+            </row>
+            <row>
+                <label value="Precio:"/>
+                <textbox id="txtPrecio"/>
+            </row>
+        </rows>
+    </grid>
+
+<button id="btnAgregar" label="Agregar"></button>
 
 	<listbox id="lbxCatProducto">
 		<listhead>
@@ -12,8 +32,6 @@
 			<listheader label="Precio"/>
 		</listhead>
 	</listbox>
-	
-<button id="btnEliminar" label="Eliminar"/> 
 	
 </window>
 </zk>
